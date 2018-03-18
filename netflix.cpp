@@ -1,5 +1,2 @@
-<<<<<<< HEAD
-using namespace std;
-
 #include "stdio.h"
->>>>>>> Mergebranch
+using namespace std;
