@@ -7,7 +7,7 @@ GMOCK_INCLUDE_DIR := $(GTEST_DIR)/googlemock/include
 
 # Compiler and flags
 CXX := g++
-CXXFLAGS := -Wall -std=c++11 -I$(GTEST_INCLUDE_DIR) -I$(GMOCK_INCLUDE_DIR)
+CXXFLAGS := -Wall -std=c++14 -I$(GTEST_INCLUDE_DIR) -I$(GMOCK_INCLUDE_DIR)
 LDFLAGS := -L$(GTEST_LIB_DIR) -lgtest -lgtest_main -pthread
 
 # Source files
@@ -17,19 +17,25 @@ TEST_FILES := ./test/calculator_test.cpp
 # Executable name
 TARGET := test_runner
 
-.PHONY: all clean run
-
-all: $(TARGET)
+.PHONY: all clean build run
 
 $(TARGET): $(SRC_FILES) $(TEST_FILES)
 	$(CXX) $(CXXFLAGS) $(SRC_FILES) $(TEST_FILES) $(LDFLAGS) -o $(TARGET)
+
+all: clean run
+
+build: $(TARGET)
 
 run: $(TARGET)
 	./$(TARGET)
 
 clean:
 	rm -f $(TARGET)
-	rm -rf $(GTEST_BUILD_DIR)
 
-
-# Doesn't work yet
+help:
+	@echo "Makefile commands:"
+	@echo "  make all    - Clean and run tests"
+	@echo "  make build  - Build the test runner"
+	@echo "  make run    - Run the test runner"
+	@echo "  make clean  - Remove the test runner executable"
+	@echo "  make help   - Show this help message"
